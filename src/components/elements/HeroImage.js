@@ -4,7 +4,6 @@ import { StyledHeroImage } from "../styles/StyledHeroImage.js";
 const HeroImage = ({ image, title, text }) => (
   <StyledHeroImage image={image}>
     <div className="heroimage-content">
-      HeroImage
       <div className="heroimage-text">
         <h1>{title}</h1>
         <p>{text}</p>

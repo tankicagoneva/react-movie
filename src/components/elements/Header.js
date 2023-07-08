@@ -15,7 +15,6 @@ const Header = () => (
     <div>
       <div className="header-content">
         <Link to="/">
-          {" "}
           <StyledRMDBLogo src={RMDBLogo} alt="rmbd-logo" />
         </Link>
 

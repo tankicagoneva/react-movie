@@ -24,6 +24,7 @@ import NoImage from "./images/no_image.jpg";
 
 // import components
 const Home = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [
     {
       state: { movies, currentPage, totalPages, heroImage },
@@ -31,8 +32,7 @@ const Home = () => {
       error,
     },
     fetchMovies,
-  ] = useHomeFetch();
-  const [searchTerm, setSearchTerm] = useState("");
+  ] = useHomeFetch(searchTerm);
 
   if (error) return <div>Something went wrong...</div>;
   if (!movies[0]) return <Spinner />;
@@ -43,7 +43,6 @@ const Home = () => {
     setSearchTerm(search);
     fetchMovies(endpoint);
   };
-
   const loadMoreMovies = () => {
     const searchEndpoint = `${SEARCH_BASE_URL}${searchTerm}$page=${
       currentPage + 1
@@ -80,7 +79,10 @@ const Home = () => {
           />
         ))}
       </Grid>
-      <LoadMoreBtn text="Load More" callback={loadMoreMovies} />
+      {loading && <Spinner />}
+      {currentPage < totalPages && !loading && (
+        <LoadMoreBtn text="Load More" callback={loadMoreMovies} />
+      )}
     </>
   );
 };

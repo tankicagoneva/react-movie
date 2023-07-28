@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { POPULAR_BASE_POINT } from "../../config";
 
-export const useHomeFetch = () => {
+export const useHomeFetch = (searchTerm) => {
   const [state, setState] = useState({ movies: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -28,8 +28,20 @@ export const useHomeFetch = () => {
   };
 
   useEffect(() => {
-    fetchMovies(POPULAR_BASE_POINT);
+    if (sessionStorage.homeState) {
+      setState(JSON.parse(sessionStorage.homeState));
+      setLoading(false);
+    } else {
+      fetchMovies(POPULAR_BASE_POINT);
+    }
   }, []);
+
+  useEffect(() => {
+    if (!searchTerm) {
+      console.log("writing to sessionStorage");
+      sessionStorage.setItem("homeState", JSON.stringify(state));
+    }
+  }, [searchTerm, state]);
 
   return [{ state, loading, error }, fetchMovies];
 };

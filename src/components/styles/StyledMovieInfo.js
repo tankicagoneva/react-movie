@@ -59,8 +59,8 @@ export const StyledMovieInfo = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     background: #fff;
     color: #000;
     font-weight: 800;
